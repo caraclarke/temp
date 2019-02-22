@@ -1,0 +1,106 @@
+<html>
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>QB Dispatch</title>
+	<meta name="description" content="">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+	<link rel="stylesheet" href="styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800" rel="stylesheet">
+
+	<!-- FAVICONS -->
+	<link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+	<link rel="manifest" href="manifest.json">
+	<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+	<link rel="shortcut icon" href="img/favicon.ico">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#74489D">
+	<meta name="apple-mobile-web-app-title" content="QB Dispatch">
+	<meta name="theme-color" content="#74489D">
+
+	<script type="text/javascript" src="lib/jquery-3.3.1.min.js"></script>
+
+	<script lang="javascript" src="https://team.quickbase.com/db/
+	bpcdkyc7t?a=API_GenAddRecordForm&_fid_6=Occurrence&apptoken=dunzq2iw4xbqzdyxdaz6bk8b4ep"></script>
+
+</head>
+
+<body>
+
+<div class="titlearea">
+	<a href="index_orig.html"><h1>Add a Ride</h1></a>
+</div>
+
+<div class="wrapper">
+
+		<script lang="javascript">
+			qdbWrite();
+		</script>
+
+
+		<form>
+			<input type="text" name="Occurrence" id="6">
+			<input type="text" name="Departing" id="7">
+			<input type="text" name="Returning" id="8">
+			<button type="submit" id="camera--trigger" type="file" accept="image/*" capture="camera" />
+			<!-- <input id="camera--trigger" type="file" accept="image/*" capture="camera" /> -->
+			<!-- <input type="submit" value="Lets Go" class="login-button"> -->
+		</form>
+
+		<button id="snap">Snap Photo</button>
+		<canvas id="canvas" width="640" height="480"></canvas>
+
+		<div class="bottom">
+			<p>&#x2665;<br><a href="http://www.quickbase.com" target="_blank">Made with Quick Base</a></p>
+		</div>
+
+</div>
+
+<script type="javascript">
+// Get access to the camera!
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Not adding `{ audio: true }` since we only want video now
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        //video.src = window.URL.createObjectURL(stream);
+        video.srcObject = stream;
+        video.play();
+    });
+}
+
+/* Legacy code below: getUserMedia 
+else if(navigator.getUserMedia) { // Standard
+    navigator.getUserMedia({ video: true }, function(stream) {
+        video.src = stream;
+        video.play();
+    }, errBack);
+} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
+    navigator.webkitGetUserMedia({ video: true }, function(stream){
+        video.src = window.webkitURL.createObjectURL(stream);
+        video.play();
+    }, errBack);
+} else if(navigator.mozGetUserMedia) { // Mozilla-prefixed
+    navigator.mozGetUserMedia({ video: true }, function(stream){
+        video.srcObject = stream;
+        video.play();
+    }, errBack);
+}
+*/
+
+// Elements for taking the snapshot
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var video = document.getElementById('video');
+
+// Trigger photo take
+document.getElementById("snap").addEventListener("click", function() {
+	context.drawImage(video, 0, 0, 640, 480);
+});
+</script>
+
+</body>
+</html>

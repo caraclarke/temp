@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>QB Dispatch - Ride Detail</title>
+    <meta name="description" content="" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800"
+      rel="stylesheet"
+    />
+
+    <!-- FAVICONS -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="img/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="manifest.json" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="img/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="img/favicon-16x16.png"
+    />
+    <link rel="shortcut icon" href="img/favicon.ico" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#74489D" />
+    <meta name="apple-mobile-web-app-title" content="QB Dispatch" />
+    <meta name="theme-color" content="#74489D" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <div class="titlearea">
+      <a href="add-ride.html"><h1>Ride Detail</h1></a>
+    </div>
+
+    <div class="wrapper">
+      <div id="dbPagePayload"></div>
+      <script lang="javascript">
+        // qdbWrite needs to be called from where you want the HTML response to display
+        function callWrite() {
+          qdbWrite();
+        }
+      </script>
+
+      <div class="bottom">
+        <p>
+          &#x2665;<br /><a href="http://www.quickbase.com" target="_blank"
+            >Made with Quick Base</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <script lang="text/javascript">
+      // get the rid from localStorage
+      // we stored the rid we want to act on when we clicked the row on the index.html page
+        var currentRequest = localStorage.getItem('rid');
+        // using jquery getScript dynamically call this URL
+        // if it succeeds call qdbWrite so the html response from this script gets written onto the page // jht=n&
+        $.getScript(`https://team.quickbase.com/db/bpcdkyc7t?a=API_GetRecordAsHTML&rid=${currentRequest}&jht=n&jsa='1'&apptoken=dunzq2iw4xbqzdyxdaz6bk8b4ep`)
+        // $.getScript(`https://team.quickbase.com/db/bpcdkyc7t?a=API_DoQuery&includeRids=3&apptoken=dunzq2iw4xbqzdyxdaz6bk8b4ep&query={'${currentRequest}'}&fmt=fields`)
+          .done(function() {
+            // callWrite();
+          });
+    </script>
+  </body>
+</html>
