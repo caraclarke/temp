@@ -40,21 +40,39 @@
     <meta name="theme-color" content="#74489D" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.js"></script>
+    <!-- <script src="https://team.quickbase.com/db/bpcdkyc7t?a=API_GenResultsTable&query={'3'}&qid=1&jht=n&apptoken=dunzq2iw4xbqzdyxdaz6bk8b4ep"></script> -->
   </head>
 
   <body>
+    <div id="QBU_message"></div>
+    <script>
+    var url = "https://team.quickbase.com/db/bpcdkyc7t?a=API_GetRecordInfo&apptoken=dunzq2iw4xbqzdyxdaz6bk8b4ep&rid=3";
+
+    $.get(url, function(xml){
+      console.log(xml)
+      xmlDoc = $.parseXML( xml ),
+      $xml = $( xmlDoc ),
+      $title = $xml.find( "field" );
+      $name = $title.find( "name" );
+      console.log($name.text)
+  $( "#response" ).append( $name.text() );
+
+    });
+    </script>
+
     <div class="titlearea">
       <a href="add-ride.html"><h1>Ride Detail</h1></a>
     </div>
 
     <div class="wrapper">
-      <div id="dbPagePayload"></div>
-      <script lang="javascript">
+      <div id="response"></div>
+      <!-- <script lang="javascript">
         // qdbWrite needs to be called from where you want the HTML response to display
         function callWrite() {
           qdbWrite();
         }
-      </script>
+      </script> -->
 
       <div class="bottom">
         <p>
@@ -65,17 +83,16 @@
       </div>
     </div>
 
-    <script lang="text/javascript">
+    <!-- <script lang="text/javascript">
       // get the rid from localStorage
       // we stored the rid we want to act on when we clicked the row on the index.html page
         var currentRequest = localStorage.getItem('rid');
         // using jquery getScript dynamically call this URL
-        // if it succeeds call qdbWrite so the html response from this script gets written onto the page // jht=n&
+        // if it succeeds call qdbWrite so the html response from this script gets written onto the page
         $.getScript(`https://team.quickbase.com/db/bpcdkyc7t?a=API_GetRecordAsHTML&rid=${currentRequest}&jht=n&jsa='1'&apptoken=dunzq2iw4xbqzdyxdaz6bk8b4ep`)
-        // $.getScript(`https://team.quickbase.com/db/bpcdkyc7t?a=API_DoQuery&includeRids=3&apptoken=dunzq2iw4xbqzdyxdaz6bk8b4ep&query={'${currentRequest}'}&fmt=fields`)
           .done(function() {
-            // callWrite();
+            callWrite();
           });
-    </script>
+    </script> -->
   </body>
 </html>
