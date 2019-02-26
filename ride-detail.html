@@ -43,6 +43,20 @@
   </head>
 
   <body>
+    <script>
+      // get the rid from localStorage
+      // we stored the rid we want to act on when we clicked the row on the index.html page
+      var currentRequest = localStorage.getItem('rid');
+      // create the script tag and append it to the head of the document
+      var qbRequestScript = document.createElement('script');
+      qbRequestScript.setAttribute(
+        'src',
+        // using es6 template strings we can insert the row id we are getting from localstorage
+        `https://team.quickbase.com/db/bpcdkyc7t?a=API_GetRecordAsHTML&rid=${currentRequest}&jht=n&apptoken=dunzq2iw4xbqzdyxdaz6bk8b4ep`
+      );
+      document.head.appendChild(qbRequestScript);
+    </script>
+
     <div class="titlearea">
       <a href="add-ride.html"><h1>Ride Detail</h1></a>
     </div>
@@ -51,9 +65,9 @@
       <div id="dbPagePayload"></div>
       <script lang="javascript">
         // qdbWrite needs to be called from where you want the HTML response to display
-        function callWrite() {
+        $(window).bind("load", function() {
           qdbWrite();
-        }
+        });
       </script>
 
       <div class="bottom">
@@ -64,18 +78,5 @@
         </p>
       </div>
     </div>
-
-    <script lang="text/javascript">
-      // get the rid from localStorage
-      // we stored the rid we want to act on when we clicked the row on the index.html page
-        var currentRequest = localStorage.getItem('rid');
-        // using jquery getScript dynamically call this URL
-        // if it succeeds call qdbWrite so the html response from this script gets written onto the page // jht=n&
-        $.getScript(`https://team.quickbase.com/db/bpcdkyc7t?a=API_GetRecordAsHTML&rid=${currentRequest}&jht=n&jsa='1'&apptoken=dunzq2iw4xbqzdyxdaz6bk8b4ep`)
-        // $.getScript(`https://team.quickbase.com/db/bpcdkyc7t?a=API_DoQuery&includeRids=3&apptoken=dunzq2iw4xbqzdyxdaz6bk8b4ep&query={'${currentRequest}'}&fmt=fields`)
-          .done(function() {
-            callWrite();
-          });
-    </script>
   </body>
 </html>
